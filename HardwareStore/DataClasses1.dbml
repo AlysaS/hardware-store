@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Mcon368storeDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-IHCEILE\SQLEXPRESS;Initial Catalog=Mcon368storeDB;Integrated Security=True" SettingsObjectName="SemesterProject.Properties.Settings" SettingsPropertyName="Mcon368storeDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.account" Member="accounts">
+    <Type Name="account">
+      <Column Name="accountID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="fName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="lName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="balance" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Association Name="account_purchase" Member="purchases" ThisKey="accountID" OtherKey="accountID" Type="purchase" />
+    </Type>
+  </Table>
+  <Table Name="dbo.item" Member="items">
+    <Type Name="item">
+      <Column Name="itemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="itemName" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="details" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="item_purchase" Member="purchases" ThisKey="itemID" OtherKey="itemID" Type="purchase" />
+    </Type>
+  </Table>
+  <Table Name="dbo.purchase" Member="purchases">
+    <Type Name="purchase">
+      <Column Name="purchaseID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="accountID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="itemID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="totalPrice" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="purchasedDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="qty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="account_purchase" Member="account" ThisKey="accountID" OtherKey="accountID" Type="account" IsForeignKey="true" />
+      <Association Name="item_purchase" Member="item" ThisKey="itemID" OtherKey="itemID" Type="item" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
